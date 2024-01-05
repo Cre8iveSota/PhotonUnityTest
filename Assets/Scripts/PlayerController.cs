@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
     public float speed;
     PhotonView photonView;
     Animator animator;
+    Health health;
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
+        health = FindObjectOfType<Health>();
     }
     private void Update()
     {
@@ -31,6 +33,16 @@ public class PlayerController : MonoBehaviour
             else
             {
                 animator.SetBool("isRunning", true);
+            }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (photonView.IsMine)
+        {
+            if (other.tag == "Enemy")
+            {
+                health.TakeDamage();
             }
         }
     }
