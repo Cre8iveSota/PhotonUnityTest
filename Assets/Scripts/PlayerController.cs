@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Health health;
     LineRenderer rend;
+    public TMP_Text nameDisplay;
 
     public float minX, maxX, minY, maxY;
     private void Start()
@@ -24,6 +26,15 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         health = FindObjectOfType<Health>();
         rend = FindObjectOfType<LineRenderer>();
+
+        if (photonView.IsMine)
+        {
+            nameDisplay.text = PhotonNetwork.NickName;
+        }
+        else
+        {
+            nameDisplay.text = photonView.Owner.NickName;
+        }
     }
     private void Update()
     {
