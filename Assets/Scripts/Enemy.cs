@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -29,6 +30,13 @@ public class Enemy : MonoBehaviour
         if (nearestPlayer != null)
         {
             transform.position = Vector2.MoveTowards(transform.position, nearestPlayer.transform.position, speed * Time.deltaTime);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "GoldenRay")
+        {
+            PhotonNetwork.Destroy(this.gameObject);
         }
     }
 }
