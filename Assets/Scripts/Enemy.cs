@@ -8,10 +8,12 @@ public class Enemy : MonoBehaviour
 {
     PlayerController[] players;
     PlayerController nearestPlayer;
+    Score score;
     public float speed;
     private void Start()
     {
         players = FindObjectsOfType<PlayerController>();
+        score = FindObjectOfType<Score>();
     }
 
     private void Update()
@@ -34,9 +36,14 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "GoldenRay")
+        // To call only once, if the PhotonNetwork.IsMasterClient is used, the procedure are invoked by Master only. 
+        if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Destroy(this.gameObject);
+            if (other.tag == "GoldenRay")
+            {
+                score.AddScore();
+                PhotonNetwork.Destroy(this.gameObject);
+            }
         }
     }
 }
