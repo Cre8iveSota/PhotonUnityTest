@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
 {
     public int health = 10;
     public TMP_Text healthDisplay;
+    public GameObject gameOver;
     PhotonView photonView;
     private void Start()
     {
@@ -23,6 +24,11 @@ public class Health : MonoBehaviour
     void TakeDamageRPC()
     {
         health--;
+
+        if (health <= 0)
+        {
+            gameOver.SetActive(true);
+        }
         healthDisplay.text = health.ToString();
     }
 }

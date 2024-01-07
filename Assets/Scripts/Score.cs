@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    int score = 0;
+    public int score = 0;
     PhotonView photonView;
     public TMP_Text scoreDisplay;
 
